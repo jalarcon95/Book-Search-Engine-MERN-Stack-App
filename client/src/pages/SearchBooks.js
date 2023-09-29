@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  Jumbotron,
   Container,
   Col,
   Form,
   Button,
   Card,
-  CardColumns,
+  Row
 } from 'react-bootstrap';
 import Auth from '../utils/auth';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-import {SAVE_BOOK} from '../utils/localStorage';
+import {saveBookIds, getSavedBookIds} from '../utils/localStorage';
+import {SAVE_BOOK} from '../utils/mutations';
 import {useMutation} from '@apollo/react-hooks';
 
 const SearchBooks = () => {
@@ -95,11 +94,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark pt-5'>
+      <div className='text-light bg-dark pt-5'>
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
+            <Row>
               <Col xs={12} md={8}>
                 <Form.Control
                   name='searchInput'
@@ -115,20 +114,21 @@ const SearchBooks = () => {
                   Submit Search
                 </Button>
               </Col>
-            </Form.Row>
+            </Row>
           </Form>
         </Container>
-      </Jumbotron>
+      </div>
 
       <Container>
-        <h2>
+        <h2 className='pt-5'>
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
             : 'Search for a book to begin'}
         </h2>
-        <CardColumns>
+        <Row>
           {searchedBooks.map((book) => {
             return (
+              <Col md="4">
                 <Card key={book.bookId} border='dark'>
                   {book.image ? (
                     <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
@@ -149,9 +149,10 @@ const SearchBooks = () => {
                     )}
                   </Card.Body>
                 </Card>
-              );
-            })}
-          </CardColumns>
+              </Col>
+            );
+          })}
+        </Row>
       </Container>
     </>
   );
