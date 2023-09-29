@@ -38,7 +38,7 @@ const SearchBooks = () => {
 
     try {
       const response = await fetch(
-        `httpsL//www.googleapis.com/books/v1/volumes?q=${searchInput}`
+        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
 
       if (!response.ok) {
